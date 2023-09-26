@@ -1,4 +1,44 @@
-//add everything here
+plugins {
+    // id for maven to publish jar to local repository
+    id 'java'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.example.demo'
+            artifactId 'demo'
+            version '1.0'
+
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    utils group: 'org.example.utils' , name: 'utils' , version: '1.0'
+}
+//add Apache Apache Commons Lang 3.10 (or higher) dependency
+
+jar {
+    manifest {
+        attributes(
+                "Implementation-Title": "org.example.demo",
+                "Implementation-Version": 1.0
+        )
+        //provide manifest with such attributes as 'Implementation-Title', 'Implementation-Version'
+    }
+}
 
 test {
     useJUnitPlatform()
